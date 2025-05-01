@@ -1,0 +1,9 @@
+.to-do {
+  max-width: 20rem;
+  background-color: var(--primary-light-blue);
+  padding: 1rem;
+}
+
+.to-do-item {
+  font-size: 1rem;
+}

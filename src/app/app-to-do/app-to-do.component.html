@@ -1,0 +1,19 @@
+<div class="card to-do">
+  <h2 class="card-title">To Do List</h2>
+  <ul class="to-do-list" *ngIf="toDoList.length > 0">
+    <li
+      class="to-do-item"
+      [ngClass]="{ 'item-checked': isItemChecked }"
+      *ngFor="let item of toDoList; let i = index"
+    >
+      <input
+        type="checkbox"
+        class="to-do-checkbox"
+        (change)="putToTrash(i)"
+      />{{ item }}
+    </li>
+  </ul>
+  <p class="empty-list-note" *ngIf="toDoList.length === 0">
+    Nothing else to do!
+  </p>
+</div>

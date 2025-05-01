@@ -1,1 +1,73 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 /* You can add global styles to this file, and also import other style files */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Primary Colors */
+  --primary-blue: #1d3557;
+  --primary-light-blue: #a8dadc;
+
+  /* Secondary Colors */
+  --secondary-teal: #457b9d;
+  --secondary-soft-green: #2a9d8f;
+
+  /* Accent Colors */
+  --accent-yellow: #f1fa8c;
+  --accent-orange: #e76f51;
+
+  /* Neutral Colors */
+  --neutral-light-gray: #f1f1f1;
+  --neutral-dark-gray: #2b2d42;
+
+  /* Supporting Colors */
+  --supporting-white: #ffffff;
+  --supporting-muted-red: #d90429;
+}
+
+body {
+  font-size: 62.5%;
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
+  line-height: 1.2;
+  background-color: var(--neutral-light-gray);
+  color: var(--neutral-dark-gray);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+/* components */
+.btn {
+  padding: 0.5rem 1.25rem;
+  min-width: 5rem;
+  border-radius: 9999px;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  cursor: pointer;
+  background-color: var(--secondary-teal);
+  color: var(--neutral-light-gray);
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1rem;
+}
