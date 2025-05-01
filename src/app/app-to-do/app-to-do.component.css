@@ -6,4 +6,20 @@
 
 .to-do-item {
   font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--supporting-white);
+  margin: 0.5em;
+  padding: 0.5em 1.5em;
+  border-radius: 15px;
+}
+
+.to-do-checkbox {
+  accent-color: var(--primary-light-blue);
+  outline: 1px solid var(--primary-light-blue);
+}
+
+.checked {
+  text-decoration: line-through;
 }

@@ -1,19 +1,35 @@
 <div class="card to-do">
   <h2 class="card-title">To Do List</h2>
-  <ul class="to-do-list" *ngIf="toDoList.length > 0">
-    <li
-      class="to-do-item"
-      [ngClass]="{ 'item-checked': isItemChecked }"
-      *ngFor="let item of toDoList; let i = index"
-    >
-      <input
-        type="checkbox"
-        class="to-do-checkbox"
-        (change)="putToTrash(i)"
-      />{{ item }}
-    </li>
-  </ul>
-  <p class="empty-list-note" *ngIf="toDoList.length === 0">
-    Nothing else to do!
-  </p>
+  <div class="category" *ngIf="!(categoryChosen === null)">
+    <select class="select" (change)="changeCategory($event)">
+      <option
+        *ngFor="let category of toDoCategory"
+        [value]="category.category"
+        class="option"
+      >
+        {{ category.category }}
+      </option>
+    </select>
+    <ul class="to-do-list" *ngIf="categoryChosen.toDoList.length > 0">
+      <li
+        class="to-do-item"
+        *ngFor="let item of categoryChosen.toDoList"
+        [ngClass]="item.checked ? 'checked' : ''"
+      >
+        <input
+          type="checkbox"
+          class="to-do-checkbox"
+          [(ngModel)]="item.checked"
+        />
+        <p class="task">{{ item.task }}</p>
+      </li>
+    </ul>
+    <p class="empty-list-note" *ngIf="categoryChosen.toDoList.length === 0">
+      Nothing else to do!
+    </p>
+    <div class="add-task">
+      <input type="text" class="input-task" [(ngModel)]="newTaskInput" />
+      <button class="btn add-task-btn" (click)="addNewTask()">add</button>
+    </div>
+  </div>
 </div>
