@@ -9,13 +9,22 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app-to-do.component.css',
 })
 export class AppToDoComponent {
+  showCreateNewCategory = true;
+  clearBtnDisabled = true;
+
   schoolToDoList = [
-    { task: 'Do math homework', checked: false },
-    { task: 'Do dishes', checked: false },
-    { task: 'Do DSA', checked: false },
+    {
+      task: 'Do math homework',
+      deadline: new Date(2025, 4, 2),
+      checked: false,
+    },
+    { task: 'Do dishes', deadline: new Date(2025, 4, 5), checked: false },
+    { task: 'Do DSA', deadline: new Date(2025, 4, 8), checked: false },
   ];
 
-  randomToDoList = [{ task: 'sleep...', checked: false }];
+  randomToDoList = [
+    { task: 'sleep...', deadline: new Date(2025, 4, 15), checked: false },
+  ];
 
   myemptyToDoList = [];
 
@@ -27,7 +36,7 @@ export class AppToDoComponent {
 
   categoryChosen: {
     category: string;
-    toDoList: { task: string; checked: boolean }[];
+    toDoList: { task: string; deadline: Date; checked: boolean }[];
   } | null = this.toDoCategory[0];
 
   changeCategory(event: Event) {
@@ -39,17 +48,50 @@ export class AppToDoComponent {
   }
 
   newTaskInput = '';
+  taskDeadlineInput = new Date(); // default date when not added is current date
 
   addNewTask() {
-    if (this.newTaskInput.length > 0) {
+    if (this.newTaskInput.trim()) {
       this.toDoCategory
         .find((item) => item.category === this.categoryChosen?.category)
         ?.toDoList.push({
-          task: this.newTaskInput,
+          task: this.newTaskInput.trim(),
+          deadline: new Date(this.taskDeadlineInput),
           checked: false,
         });
 
       this.newTaskInput = '';
+    }
+  }
+
+  updateClearButtonState() {
+    if (this.categoryChosen)
+      this.clearBtnDisabled = !this.categoryChosen.toDoList.some(
+        (task) => task.checked
+      );
+  }
+
+  clear() {
+    if (this.categoryChosen) {
+      this.categoryChosen.toDoList = this.categoryChosen.toDoList.filter(
+        (task) => !task.checked
+      );
+      this.updateClearButtonState();
+    }
+  }
+
+  newCategoryInput = '';
+  addNewCategory() {
+    if (this.newCategoryInput.trim()) {
+      this.toDoCategory.push({
+        category: this.newCategoryInput.trim(),
+        toDoList: [],
+      });
+
+      this.categoryChosen = this.toDoCategory[this.toDoCategory.length - 1];
+
+      this.newCategoryInput = '';
+      this.showCreateNewCategory = true;
     }
   }
 }

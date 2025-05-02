@@ -1,35 +1,78 @@
 <div class="card to-do">
   <h2 class="card-title">To Do List</h2>
-  <div class="category" *ngIf="!(categoryChosen === null)">
-    <select class="select" (change)="changeCategory($event)">
-      <option
-        *ngFor="let category of toDoCategory"
-        [value]="category.category"
-        class="option"
+  <div
+    class="category"
+    *ngIf="!(categoryChosen === null) && showCreateNewCategory"
+  >
+    <div class="functional-group">
+      <select class="select" (change)="changeCategory($event)">
+        <option
+          *ngFor="let category of toDoCategory"
+          [value]="category.category"
+          class="option"
+        >
+          {{ category.category }}
+        </option>
+      </select>
+      <button
+        class="btn add-category"
+        (click)="showCreateNewCategory = !showCreateNewCategory"
       >
-        {{ category.category }}
-      </option>
-    </select>
+        new category
+      </button>
+      <button class="btn clear" [disabled]="clearBtnDisabled" (click)="clear()">
+        clear
+      </button>
+    </div>
+
     <ul class="to-do-list" *ngIf="categoryChosen.toDoList.length > 0">
-      <li
-        class="to-do-item"
-        *ngFor="let item of categoryChosen.toDoList"
-        [ngClass]="item.checked ? 'checked' : ''"
-      >
+      <li class="to-do-item" *ngFor="let item of categoryChosen.toDoList">
         <input
           type="checkbox"
           class="to-do-checkbox"
           [(ngModel)]="item.checked"
+          (change)="updateClearButtonState()"
         />
-        <p class="task">{{ item.task }}</p>
+        <div class="task-info">
+          <p class="task" [ngClass]="item.checked ? 'checked' : ''">
+            {{ item.task }}
+          </p>
+          <p class="deadline" [ngClass]="item.checked ? 'checked' : ''">
+            {{ `${item.deadline.getMonth() + 1}/${item.deadline.getDate()}/${item.deadline.getFullYear()}`}}
+          </p>
+        </div>
       </li>
     </ul>
     <p class="empty-list-note" *ngIf="categoryChosen.toDoList.length === 0">
       Nothing else to do!
     </p>
     <div class="add-task">
-      <input type="text" class="input-task" [(ngModel)]="newTaskInput" />
+      <input
+        type="text"
+        class="input-task"
+        placeholder="my new task..."
+        [(ngModel)]="newTaskInput"
+      />
+      <input type="date" class="add-deadline" [(ngModel)]="taskDeadlineInput" />
       <button class="btn add-task-btn" (click)="addNewTask()">add</button>
     </div>
+  </div>
+  <div class="add-category-div" *ngIf="!showCreateNewCategory">
+    <input
+      type="text"
+      class="input-category"
+      placeholder="my new category..."
+      [(ngModel)]="newCategoryInput"
+    />
+
+    <button class="btn add-category-btn" (click)="addNewCategory()">
+      add category
+    </button>
+    <button
+      class="btn new-category-cancel"
+      (click)="showCreateNewCategory = !showCreateNewCategory"
+    >
+      cancel
+    </button>
   </div>
 </div>
