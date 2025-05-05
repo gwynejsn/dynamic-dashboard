@@ -9,7 +9,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './app-to-do.component.css',
 })
 export class AppToDoComponent {
-  showCreateNewCategory = true;
+  showCreateNewCategory = false;
+  showAddNewTask = false;
   clearBtnDisabled = true;
 
   schoolToDoList = [
@@ -61,6 +62,7 @@ export class AppToDoComponent {
         });
 
       this.newTaskInput = '';
+      this.showAddNewTask = false;
     }
   }
 
@@ -91,7 +93,13 @@ export class AppToDoComponent {
       this.categoryChosen = this.toDoCategory[this.toDoCategory.length - 1];
 
       this.newCategoryInput = '';
-      this.showCreateNewCategory = true;
+      this.showCreateNewCategory = false;
     }
+  }
+
+  isPastDeadline(date: Date) {
+    const today = new Date();
+    const targetDate = date;
+    return targetDate < today;
   }
 }

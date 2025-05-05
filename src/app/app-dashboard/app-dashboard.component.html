@@ -5,6 +5,7 @@
         <h1 class="text-logo">Dynamic Dashboard</h1>
       </div>
       <div class="right-side">
+        <p class="greeting">{{ greeting }}</p>
         <img
           src="assets/images/luffy_no_bg.png"
           alt="profile"
@@ -13,13 +14,43 @@
       </div>
     </nav>
   </header>
-  <section class="board">
-    <div class="menu">
-      <button class="btn add">Add</button>
-      <button class="btn remove">Remove</button>
-    </div>
-    <div class="cards">
-      <app-app-to-do></app-app-to-do>
-    </div>
-  </section>
+  <div class="board-wrapper">
+    <section class="board">
+      <div class="menu">
+        <div class="card-actions">
+          <button
+            class="btn add-card"
+            (click)="showAddCardSelect = !showAddCardSelect"
+          >
+            Add
+          </button>
+          <button class="btn remove-card">Remove</button>
+          <div class="add-card-div" *ngIf="showAddCardSelect">
+            <h3 class="add-card-div-label">Add card</h3>
+            <select class="add-card-select">
+              <option value="to-do">To-do</option>
+              <option value="clock">Clock</option>
+            </select>
+            <button class="btn add-card">add</button>
+            <button
+              class="btn cancel-add-card"
+              (click)="showAddCardSelect = !showAddCardSelect"
+            >
+              cancel
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cards">
+        <div
+          *ngFor="let card of cards"
+          draggable="true"
+          (dragstart)="onDragStart($event)"
+        >
+          <ng-container *ngComponentOutlet="card"></ng-container>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>

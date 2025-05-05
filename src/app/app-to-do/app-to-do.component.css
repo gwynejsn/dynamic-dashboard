@@ -1,9 +1,16 @@
 .to-do {
-  max-width: 25rem;
+  max-width: 20rem;
   background-color: var(--primary-light-blue);
   padding: 1rem;
 }
 
+.category {
+  padding: 1rem;
+  max-width: 100%;
+  min-width: calc(0.9 * 20rem);
+  display: flex;
+  flex-direction: column;
+}
 .functional-group {
   display: flex;
   justify-content: space-between;
@@ -19,6 +26,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  width: 100%;
 }
 
 .to-do-item {
@@ -36,10 +44,6 @@
   outline: 1px solid var(--primary-light-blue);
 }
 
-.checked {
-  text-decoration: line-through;
-}
-
 .task-info {
   display: flex;
   flex-direction: column;
@@ -51,17 +55,21 @@
   font-size: 0.9rem;
 }
 
-.add-task {
-  display: flex;
-  margin: 1rem 0;
-  gap: 0.5rem;
+.past-deadline {
+  color: var(--supporting-muted-red);
+  font-weight: 600;
 }
 
-.add-deadline,
-.input-task {
-  border-radius: 10px;
-  border: none;
-  padding: 0.5rem;
+.checked {
+  text-decoration: line-through;
+  color: var(--neutral-dark-gray);
+  font-weight: 500;
+}
+
+.empty-list-note {
+  display: flex;
+  justify-content: center;
+  margin: 2rem;
 }
 
 .add-category-div {
@@ -80,4 +88,20 @@
 
 .new-category-cancel {
   background-color: var(--supporting-muted-red);
+}
+
+.add-task {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+  gap: 0.5rem;
+  min-width: calc(0.8 * 20rem);
+}
+
+.add-deadline,
+.input-task {
+  border-radius: 10px;
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
 }

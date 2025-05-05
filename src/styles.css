@@ -14,6 +14,7 @@
 
   /* Secondary Colors */
   --secondary-teal: #457b9d;
+  --secondary-teal-transparent: rgba(69, 123, 157, 0.8);
   --secondary-soft-green: #2a9d8f;
 
   /* Accent Colors */
@@ -26,7 +27,7 @@
 
   /* Supporting Colors */
   --supporting-white: #ffffff;
-  --supporting-muted-red: #cf0f47;
+  --supporting-muted-red: #f75a5a;
 }
 
 body {
@@ -36,6 +37,10 @@ body {
   line-height: 1.2;
   background-color: var(--neutral-light-gray);
   color: var(--neutral-dark-gray);
+  background-image: url("/assets/images/background-wallpapers/2.png");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 
 ul,
@@ -46,9 +51,8 @@ ol {
 /* components */
 .btn {
   padding: 0.5rem 1.25rem;
-  min-width: 5rem;
   border-radius: 9999px;
-  font-size: 1rem;
+  font-size: 0.8rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;

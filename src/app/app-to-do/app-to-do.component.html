@@ -2,7 +2,9 @@
   <h2 class="card-title">To Do List</h2>
   <div
     class="category"
-    *ngIf="!(categoryChosen === null) && showCreateNewCategory"
+    *ngIf="
+      !(categoryChosen === null) && !showCreateNewCategory && !showAddNewTask
+    "
   >
     <div class="functional-group">
       <select class="select" (change)="changeCategory($event)">
@@ -20,9 +22,6 @@
       >
         new category
       </button>
-      <button class="btn clear" [disabled]="clearBtnDisabled" (click)="clear()">
-        clear
-      </button>
     </div>
 
     <ul class="to-do-list" *ngIf="categoryChosen.toDoList.length > 0">
@@ -34,10 +33,17 @@
           (change)="updateClearButtonState()"
         />
         <div class="task-info">
-          <p class="task" [ngClass]="item.checked ? 'checked' : ''">
+          <p class="task" [ngClass]="{ checked: item.checked }">
             {{ item.task }}
           </p>
-          <p class="deadline" [ngClass]="item.checked ? 'checked' : ''">
+          <p
+            class="deadline"
+            [ngClass]="{
+              checked: item.checked,
+              'item-checked': item.checked,
+              'past-deadline': isPastDeadline(item.deadline)
+            }"
+          >
             {{ `${item.deadline.getMonth() + 1}/${item.deadline.getDate()}/${item.deadline.getFullYear()}`}}
           </p>
         </div>
@@ -46,6 +52,17 @@
     <p class="empty-list-note" *ngIf="categoryChosen.toDoList.length === 0">
       Nothing else to do!
     </p>
+    <button class="btn add-task" (click)="showAddNewTask = !showAddNewTask">
+      add task
+    </button>
+    <button class="btn clear" [disabled]="clearBtnDisabled" (click)="clear()">
+      clear
+    </button>
+  </div>
+
+  <!-- other pages -->
+
+  <div class="add-task-div" *ngIf="showAddNewTask">
     <div class="add-task">
       <input
         type="text"
@@ -54,10 +71,11 @@
         [(ngModel)]="newTaskInput"
       />
       <input type="date" class="add-deadline" [(ngModel)]="taskDeadlineInput" />
-      <button class="btn add-task-btn" (click)="addNewTask()">add</button>
+      <button class="btn add-task-btn" (click)="addNewTask()">add task</button>
     </div>
   </div>
-  <div class="add-category-div" *ngIf="!showCreateNewCategory">
+
+  <div class="add-category-div" *ngIf="showCreateNewCategory">
     <input
       type="text"
       class="input-category"

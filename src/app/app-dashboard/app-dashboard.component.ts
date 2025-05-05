@@ -1,10 +1,46 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { AppToDoComponent } from '../app-to-do/app-to-do.component';
 
 @Component({
   selector: 'app-app-dashboard',
-  imports: [AppToDoComponent, AppToDoComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './app-dashboard.component.html',
   styleUrl: './app-dashboard.component.css',
 })
-export class AppDashboardComponent {}
+export class AppDashboardComponent {
+  greeting = '';
+  username = 'Gwyne';
+  cards = [AppToDoComponent, AppToDoComponent, AppToDoComponent];
+
+  // card actions
+  showAddCardSelect = false;
+  showDeleteCardSelect = false;
+
+  constructor() {
+    this.updateGreeting();
+  }
+
+  updateGreeting() {
+    const hour = new Date().getHours();
+
+    if (hour >= 5 && hour < 12) {
+      this.greeting = 'Good morning';
+    } else if (hour >= 12 && hour < 18) {
+      this.greeting = 'Good afternoon';
+    } else {
+      this.greeting = 'Good evening';
+    }
+    this.greeting += ', ' + this.username;
+  }
+
+  onDragStart(event: DragEvent) {
+    console.log('Dragging me');
+    console.log(event);
+  }
+
+  onDragOver(event: DragEvent) {
+    event.preventDefault(); // Required to allow drop
+  }
+}
