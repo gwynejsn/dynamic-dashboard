@@ -37,7 +37,6 @@ body {
   line-height: 1.2;
   background-color: var(--neutral-light-gray);
   color: var(--neutral-dark-gray);
-  background-image: url("/assets/images/background-wallpapers/2.png");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

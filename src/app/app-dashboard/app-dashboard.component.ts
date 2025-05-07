@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Type } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppToDoComponent } from '../app-to-do/app-to-do.component';
 
@@ -12,7 +12,15 @@ import { AppToDoComponent } from '../app-to-do/app-to-do.component';
 export class AppDashboardComponent {
   greeting = '';
   username = 'Gwyne';
-  cards = [AppToDoComponent, AppToDoComponent, AppToDoComponent];
+
+  cardToBeAdded: string | null = null;
+  availableCards = [
+    {
+      cardName: 'to-do',
+      card: AppToDoComponent,
+    },
+  ];
+  cards: Type<any>[] = [AppToDoComponent];
 
   // card actions
   showAddCardSelect = false;
@@ -35,12 +43,14 @@ export class AppDashboardComponent {
     this.greeting += ', ' + this.username;
   }
 
-  onDragStart(event: DragEvent) {
-    console.log('Dragging me');
-    console.log(event);
-  }
+  addCard() {
+    if (this.cardToBeAdded != null) {
+      const cardFound = this.availableCards.find(
+        (card) => card.cardName === this.cardToBeAdded
+      );
 
-  onDragOver(event: DragEvent) {
-    event.preventDefault(); // Required to allow drop
+      if (cardFound) this.cards.push(cardFound.card);
+      this.showAddCardSelect = !this.showAddCardSelect;
+    }
   }
 }

@@ -27,11 +27,16 @@
           <button class="btn remove-card">Remove</button>
           <div class="add-card-div" *ngIf="showAddCardSelect">
             <h3 class="add-card-div-label">Add card</h3>
-            <select class="add-card-select">
-              <option value="to-do">To-do</option>
-              <option value="clock">Clock</option>
+            <select
+              class="add-card-select"
+              *ngFor="let card of availableCards"
+              [(ngModel)]="cardToBeAdded"
+            >
+              <option [value]="card.cardName">
+                {{ card.cardName }}
+              </option>
             </select>
-            <button class="btn add-card">add</button>
+            <button class="btn add-card" (click)="addCard()">add</button>
             <button
               class="btn cancel-add-card"
               (click)="showAddCardSelect = !showAddCardSelect"
@@ -43,11 +48,7 @@
       </div>
 
       <div class="cards">
-        <div
-          *ngFor="let card of cards"
-          draggable="true"
-          (dragstart)="onDragStart($event)"
-        >
+        <div *ngFor="let card of cards" draggable="true">
           <ng-container *ngComponentOutlet="card"></ng-container>
         </div>
       </div>
