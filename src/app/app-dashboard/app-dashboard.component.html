@@ -18,15 +18,18 @@
     <section class="board">
       <div class="menu">
         <div class="card-actions">
+          <button class="btn add-card" (click)="showAddCard()">add</button>
           <button
-            class="btn add-card"
-            (click)="showAddCardSelect = !showAddCardSelect"
+            class="btn remove-card"
+            [disabled]="removeCardDisabled"
+            (click)="setRemovingCard()"
           >
-            Add
+            {{ removeCardLabel }}
           </button>
-          <button class="btn remove-card">Remove</button>
+          <!-- add card pop up -->
           <div class="add-card-div" *ngIf="showAddCardSelect">
             <h3 class="add-card-div-label">Add card</h3>
+            <h4 class="error" *ngIf="addCardError">{{ addCardError }}</h4>
             <select
               class="add-card-select"
               *ngFor="let card of availableCards"
@@ -37,10 +40,7 @@
               </option>
             </select>
             <button class="btn add-card" (click)="addCard()">add</button>
-            <button
-              class="btn cancel-add-card"
-              (click)="showAddCardSelect = !showAddCardSelect"
-            >
+            <button class="btn cancel-add-card" (click)="cancelAddingCard()">
               cancel
             </button>
           </div>
@@ -49,7 +49,16 @@
 
       <div class="cards">
         <div *ngFor="let card of cards" draggable="true">
-          <ng-container *ngComponentOutlet="card"></ng-container>
+          <div class="dashboard-card">
+            <button
+              class="btn remove-btn"
+              *ngIf="removingCard"
+              (click)="removeCard(card.cardName)"
+            >
+              remove
+            </button>
+            <ng-container *ngComponentOutlet="card.card"></ng-container>
+          </div>
         </div>
       </div>
     </section>

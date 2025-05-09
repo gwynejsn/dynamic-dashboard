@@ -85,7 +85,7 @@
   gap: 1rem;
   align-items: center;
   padding: 5rem;
-  background-color: var(--secondary-teal-transparent);
+  background-color: var(--primary-blue-transparent);
   backdrop-filter: blur(10px);
   border-radius: 15px;
 }
@@ -96,12 +96,12 @@
 }
 
 .add-card-div .btn {
-  color: var(--neutral-dark-gray);
+  color: var(--neutral-light-gray);
   font-weight: 600;
 }
 
 .add-card-div .add-card {
-  background-color: var(--primary-light-blue);
+  background-color: var(--secondary-teal);
 }
 
 .cancel-add-card {
@@ -112,4 +112,19 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   row-gap: 2rem;
+}
+
+.dashboard-card {
+  position: relative;
+}
+
+.remove-btn {
+  position: absolute;
+  top: 1rem;
+  left: 0.5rem;
+  background-color: var(--supporting-muted-red);
+}
+
+.add-card-select {
+  width: 10rem;
 }
